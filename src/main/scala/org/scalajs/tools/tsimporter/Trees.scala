@@ -5,6 +5,8 @@
 
 package org.scalajs.tools.tsimporter
 
+import sun.reflect.generics.tree.TypeTree
+
 import scala.util.parsing.input.Positional
 
 object Trees {
@@ -172,6 +174,8 @@ object Trees {
 
   case class IndexedQueryType(underlying: TypeTree) extends TypeTree
   case class IndexedAccessType(objectType: TypeTree, name: TypeTree) extends TypeTree
+
+  case class MappedType(modifiers: Modifiers, keyType: TypeName, underlying: Tree, optional: Boolean, valueType: Option[TypeTree]) extends TypeTree
 
   object PolymorphicThisType extends TypeTree
 

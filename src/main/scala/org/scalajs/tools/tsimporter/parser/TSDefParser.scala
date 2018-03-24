@@ -231,6 +231,7 @@ class TSDefParser extends StdTokenParsers with ImplicitConversions {
     | tupleType
     | thisType
     | indexTypeQuery
+    | mappedType
     | "(" ~> typeDesc <~ ")"
   )
 
@@ -279,6 +280,15 @@ class TSDefParser extends StdTokenParsers with ImplicitConversions {
     "[" ~> rep1sep(typeDesc, ",") <~ "]" ^^ { parts =>
       TupleType(parts)
     }
+
+  lazy val mappedType: Parser[TypeTree] =
+    "{" ~> modifiers ~ mappedTypePropertiesQuery ~ optionalMarker ~ optTypeAnnotation <~ opt(";") <~ "}" ^^ {
+      case mods ~ (tpe ~ underlying) ~ optional ~ valueType =>
+        MappedType(mods, tpe, underlying, optional, valueType)
+    }
+
+  lazy val mappedTypePropertiesQuery: Parser[TypeName ~ Tree] =
+     "[" ~> (typeName <~ "in") ~ (indexTypeQuery | typeName) <~ "]"
 
   lazy val objectType: Parser[TypeTree] =
     memberBlock ^^ ObjectType

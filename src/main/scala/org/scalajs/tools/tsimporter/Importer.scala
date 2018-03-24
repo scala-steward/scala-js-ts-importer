@@ -301,7 +301,8 @@ class Importer(val output: java.io.PrintWriter) {
           // Type parameters in function types are not supported
           TypeRef.Function
         } else if (params.exists(_.tpe.exists(_.isInstanceOf[RepeatedType]))) {
-          // Repeated params in function types are not supported
+          // Repeated params in function t
+          // ypes are not supported
           TypeRef.Function
         } else {
           val paramTypes =
@@ -354,6 +355,10 @@ class Importer(val output: java.io.PrintWriter) {
 
       case PolymorphicThisType =>
         TypeRef.This
+
+      case MappedType(modifiers, key, underlying, optional, valueType) =>
+        val valueTpe = valueType.map(typeToScala).getOrElse(TypeRef.Any)
+        TypeRef(QualifiedName.Dictionary, List(valueTpe))
 
       case _ =>
         // ???
