@@ -39,7 +39,7 @@ lazy val webapp = project.in(file("webapp"))
 lazy val importer = project.in(file("importer"))
   .settings(
     libraryDependencies ++= Seq(
-      "org.scala-lang.modules" %%% "scala-parser-combinators" % "2.1.0",
+      "org.scala-lang.modules" %%% "scala-parser-combinators" % "2.1.1",
       "net.exoego" %%% "scala-js-nodejs-v12" % "0.14.0" % Test,
       "org.scalatest" %%% "scalatest" % "3.2.11" % Test
     ),
