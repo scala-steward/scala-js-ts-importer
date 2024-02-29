@@ -1,6 +1,6 @@
 import sbt.Keys.{ artifactPath, resolvers }
 
-lazy val scala213 = "2.13.12"
+lazy val scala213 = "2.13.13"
 crossScalaVersions in ThisBuild := Seq(scala213)
 scalaVersion in ThisBuild := scala213
 
